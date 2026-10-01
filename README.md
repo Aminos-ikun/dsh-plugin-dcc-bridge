@@ -1,3 +1,4 @@
+此插件适用于DeepSeek Harness
 # dsh-plugin-dcc-bridge
 
 给 DSH 加两件事：
