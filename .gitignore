@@ -1,0 +1,25 @@
+# Dependencies (the plugin itself has none, but a checkout may gain some)
+node_modules/
+
+# Local output from the self-check and from desktop screenshots
+.dsh-screenshots/
+*.log
+
+# Python bytecode from syntax checks and bridge runs
+__pycache__/
+*.py[cod]
+
+# Blender autosaves, wherever a scene happens to be opened from
+*.blend1
+*.blend2
+*.blend@
+
+# OS noise
+Thumbs.db
+Desktop.ini
+.DS_Store
+
+# Editors
+.vscode/
+.idea/
+*.swp

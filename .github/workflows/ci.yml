@@ -1,0 +1,61 @@
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  syntax:
+    name: syntax and packaging
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: JavaScript parses
+        run: |
+          set -e
+          for f in lib/*.js tools/*.mjs; do
+            echo "checking $f"
+            node --check "$f"
+          done
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Python parses
+        run: python -m py_compile assets/*.py tools/*.py
+
+      - name: Every registered tool declares a usable schema
+        run: |
+          # The definition check needs no desktop and no 3D application, so it
+          # runs on Linux too; the desktop and bridge sections skip themselves.
+          node tools/selfcheck.mjs --definitions-only
+
+      - name: Package publishes only what it should
+        run: |
+          npm pack --dry-run 2>&1 | tee /tmp/pack.txt
+          grep -q 'lib/index.js' /tmp/pack.txt
+          grep -q 'assets/desktop-agent.ps1' /tmp/pack.txt
+          grep -q 'assets/blender_dsh_bridge.py' /tmp/pack.txt
+          grep -q 'cordis.patch.yml' /tmp/pack.txt
+
+  gate:
+    name: approval gate
+    # The gate wraps the desktop tools, which are registered on Windows only,
+    # and its bodies talk to a Windows PowerShell agent. So this job runs there.
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Approval gate tests
+        run: node tools/gate-test.mjs

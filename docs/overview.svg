@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 980 520" width="980" height="520" font-family="'Segoe UI','Microsoft YaHei',sans-serif">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#5b6b7c"/>
+    </marker>
+    <style>
+      .box { fill: #ffffff; stroke: #c3ced9; stroke-width: 1.5; rx: 10; }
+      .boxd { fill: #f4f8fc; stroke: #9fb4c8; stroke-width: 1.5; rx: 10; }
+      .t { fill: #1d2b3a; font-size: 15px; font-weight: 600; }
+      .s { fill: #5b6b7c; font-size: 12.5px; }
+      .m { fill: #33465c; font-size: 12.5px; font-family: Consolas,monospace; }
+      .wire { stroke: #5b6b7c; stroke-width: 1.5; fill: none; marker-end: url(#arrow); }
+      .wl { fill: #6b7d90; font-size: 11.5px; }
+    </style>
+  </defs>
+
+  <text x="30" y="34" font-size="17" font-weight="700" fill="#1d2b3a">dsh-plugin-dcc-bridge · 两个能力组</text>
+
+  <!-- DSH agent -->
+  <rect class="boxd" x="30" y="60" width="200" height="120"/>
+  <text class="t" x="48" y="88">DSH Agent</text>
+  <text class="s" x="48" y="110">工具调用</text>
+  <text class="m" x="48" y="134">desktop_*</text>
+  <text class="m" x="48" y="154">dcc_*</text>
+
+  <!-- plugin -->
+  <rect class="box" x="290" y="60" width="200" height="120"/>
+  <text class="t" x="308" y="88">插件（宿主进程）</text>
+  <text class="s" x="308" y="110">lib/desktop.js</text>
+  <text class="s" x="308" y="130">lib/dcc.js</text>
+  <text class="s" x="308" y="150">审批门 · 零依赖</text>
+
+  <path class="wire" d="M 232 120 L 286 120"/>
+  <text class="wl" x="238" y="112">注册</text>
+
+  <!-- desktop branch -->
+  <rect class="box" x="580" y="40" width="360" height="88"/>
+  <text class="t" x="598" y="68">PowerShell 代理（常驻）</text>
+  <text class="s" x="598" y="90">TCP 回环 优先 · 文件批处理 保底</text>
+  <text class="s" x="598" y="110">P/Invoke: User32 / GDI+ / SendInput</text>
+  <path class="wire" d="M 492 96 L 576 84"/>
+  <text class="wl" x="500" y="76">lib/ps.js</text>
+
+  <rect class="box" x="580" y="150" width="360" height="64"/>
+  <text class="t" x="598" y="178">Windows 桌面</text>
+  <text class="s" x="598" y="199">截屏 · 鼠标 · 键盘 · 窗口 · 进程 · 剪贴板</text>
+  <path class="wire" d="M 760 132 L 760 146"/>
+
+  <!-- dcc branch -->
+  <rect class="box" x="580" y="250" width="360" height="86"/>
+  <text class="t" x="598" y="278">桥（软件内，主线程执行）</text>
+  <text class="s" x="598" y="300">JSON 行 · 127.0.0.1 · token 校验</text>
+  <text class="s" x="598" y="320">Blender 5.0.1 · bpy 命名空间跨调用保持</text>
+  <path class="wire" d="M 492 148 L 576 280"/>
+
+  <rect class="box" x="580" y="360" width="360" height="70"/>
+  <text class="t" x="598" y="388">无头批处理</text>
+  <text class="s" x="598" y="409">blender -b -P · mayapy · hython · 3dsmaxbatch</text>
+  <path class="wire" d="M 492 160 L 576 390"/>
+
+  <!-- outputs -->
+  <rect class="box" x="30" y="300" width="460" height="180"/>
+  <text class="t" x="48" y="330">能拿到的结果</text>
+  <text class="s" x="48" y="358">· PNG 截图路径（再用 read_image 看）</text>
+  <text class="s" x="48" y="382">· 窗口清单：标题 / 进程 / 几何 / 前台标记</text>
+  <text class="s" x="48" y="406">· dcc_run 的 stdout + 最后一个表达式的值</text>
+  <text class="s" x="48" y="430">· dcc_batch 的完整控制台输出与退出码</text>
+  <text class="s" x="48" y="454">· 桥的 traceback 作为数据回传，不当中断</text>
+
+  <text class="s" x="30" y="508" font-size="11.5" fill="#8595a6">实测：桥协议与桌面通道均已真机端到端验证（18/18 通过，含 Blender 5.0.1）。</text>
+</svg>

@@ -1,0 +1,59 @@
+{
+  "name": "dsh-plugin-dcc-bridge",
+  "version": "0.1.0",
+  "description": "Desktop control (screenshot / mouse / keyboard / windows / processes / clipboard) plus a bridge into 3D content-creation apps (Blender first, generic adapters for Maya, 3ds Max, Houdini, Cinema 4D, Unreal, Unity, Godot).",
+  "type": "module",
+  "license": "MIT",
+  "main": "lib/index.js",
+  "exports": {
+    ".": "./lib/index.js",
+    "./cordis.patch.yml": "./cordis.patch.yml",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "lib",
+    "assets",
+    "docs",
+    "tools",
+    "cordis.patch.yml",
+    "README.md",
+    "CHANGELOG.md",
+    "SECURITY.md",
+    "LICENSE"
+  ],
+  "engines": {
+    "node": ">=20"
+  },
+  "keywords": [
+    "dsh",
+    "dsh-plugin",
+    "blender",
+    "bpy",
+    "3d",
+    "dcc",
+    "desktop-automation",
+    "computer-use",
+    "screen-capture",
+    "windows"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Aminos-ikun/dsh-plugin-dcc-bridge.git"
+  },
+  "homepage": "https://github.com/Aminos-ikun/dsh-plugin-dcc-bridge#readme",
+  "bugs": {
+    "url": "https://github.com/Aminos-ikun/dsh-plugin-dcc-bridge/issues"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    }
+  },
+  "scripts": {
+    "test": "node tools/gate-test.mjs",
+    "selfcheck": "node tools/selfcheck.mjs"
+  }
+}
